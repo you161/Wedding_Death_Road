@@ -104,3 +104,22 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+Wedding_Death_Road/.vsconfig
+Wedding_Death_Road/Assembly-CSharp.csproj
+Wedding_Death_Road/Wedding_Death_Road.sln
+Wedding_Death_Road/.vs/Wedding_Death_Road/project-colors.json
+Wedding_Death_Road/.vs/Wedding_Death_Road/FileContentIndex/21a49f47-2ded-48a7-a9e2-4ac272791f4b.vsidx
+Wedding_Death_Road/.vs/Wedding_Death_Road/FileContentIndex/3cc17768-ab6e-4024-ab1f-c82331dacd29.vsidx
+Wedding_Death_Road/.vs/Wedding_Death_Road/FileContentIndex/8b6e8ab7-f393-4218-aab4-5c131ac8137e.vsidx
+Wedding_Death_Road/.vs/Wedding_Death_Road/FileContentIndex/a0396cc7-b37b-474e-a7eb-920b88d6ca16.vsidx
+Wedding_Death_Road/.vs/Wedding_Death_Road/FileContentIndex/read.lock
+Wedding_Death_Road/.vs/Wedding_Death_Road/v17/.suo
+Wedding_Death_Road/Library/
+Wedding_Death_Road/Logs/
+Wedding_Death_Road/obj/
+Wedding_Death_Road/UserSettings/
+*.sln
+*.suo
+Wedding_Death_Road/Temp/
+Wedding_Death_Road/.vs/
