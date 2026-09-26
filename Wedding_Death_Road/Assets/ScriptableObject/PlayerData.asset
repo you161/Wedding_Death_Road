@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerData
   MoveSpeed: 10
   RotationSpeed: 720
+  pullableDistance: 5
+  maxWaitingTime: 1
+  PullSpeed: 10
+  StopDistance: 2
