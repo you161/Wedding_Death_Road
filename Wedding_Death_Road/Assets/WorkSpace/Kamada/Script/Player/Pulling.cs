@@ -29,9 +29,17 @@ public class Pulling : MonoBehaviour
         Vector3 direction = playerRb[responder].position - playerRb[initiator].position;
         direction.Normalize();
 
+        playerRb[responder].linearVelocity = Vector3.zero;
+
         Vector3 linerVelocity = playerRb[initiator].linearVelocity;
         linerVelocity.x = playerData.PullSpeed * direction.x;
         linerVelocity.z = playerData.PullSpeed * direction.z;
+
+        Quaternion initiatorRotation = Quaternion.LookRotation(direction);
+        playerRb[initiator].MoveRotation(initiatorRotation);
+
+        Quaternion responderRotation = Quaternion.LookRotation(-direction);
+        playerRb[responder].MoveRotation(responderRotation);
 
         float distance = Vector3.Distance(playerRb[initiator].position, playerRb[responder].position);
 

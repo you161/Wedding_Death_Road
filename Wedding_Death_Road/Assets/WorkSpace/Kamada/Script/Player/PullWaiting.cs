@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PullWaiting : MonoBehaviour
 {
@@ -41,8 +42,27 @@ public class PullWaiting : MonoBehaviour
             return;
         }
 
+        Vector3 direction = Vector3.zero;
+
+        if(playerNumber == 0)
+        {
+            direction = playerRb[1].position - playerRb[0].position;
+        }
+        else
+        {
+            direction = playerRb[0].position - playerRb[1].position;
+        }
+
+        direction.Normalize();
+
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        playerRb[playerNumber].MoveRotation(targetRotation);
+
+        playerRb[playerNumber].linearVelocity = Vector3.zero;
+
         pullManager.ChangeState(PullState.Ready);
         pullManager.SetInitiator(playerInputManager[playerNumber]);
+        pullManager.SetPlayerLocked(playerNumber,true);
         timer = 0;
     }
 
