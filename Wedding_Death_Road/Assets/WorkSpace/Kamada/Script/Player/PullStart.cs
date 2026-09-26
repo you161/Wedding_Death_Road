@@ -28,5 +28,6 @@ public class PullStart : MonoBehaviour
     {
         pullManager.ChangeState(PullState.Pulling);
         pullManager.SetResponder(playerInputManager[playerNumber]);
+        pullManager.SetPlayerLocked(playerNumber,true);
     }
 }

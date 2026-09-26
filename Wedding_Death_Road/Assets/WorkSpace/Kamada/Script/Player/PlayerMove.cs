@@ -7,6 +7,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private PlayerInputManager playerInputManager = null;
     [SerializeField] private PullManager pullManager = null;
 
+    private int playerIndex = 0;
     private Vector3 moveDirection = Vector3.zero;
 
     private bool isPressed = false;
@@ -27,8 +28,12 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
-        if (pullManager.CurrentState != PullState.None)
+        if (pullManager.IsPlayerLocked(playerIndex))
         {
+            isPressed = false;
+            moveDirection = Vector3.zero;
+            isMove = false;
+
             return;
         }
 
@@ -37,7 +42,7 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(pullManager.CurrentState != PullState.None)
+        if (pullManager.IsPlayerLocked(playerIndex))
         {
             return;
         }
@@ -101,15 +106,6 @@ public class PlayerMove : MonoBehaviour
         //移動方向に向ける
         Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
 
-        ////現在の回転と目標回転の角度
-        //float angle = Quaternion.Angle(rb.rotation,targetRotation);
-
-        ////大きく方向転換する場合回転速度を倍に
-        //if (angle >= 150.0f)
-        //{
-        //    rotationSpeed *= 2.0f;
-        //}
-
         //目標方向へ回転
         rb.rotation = Quaternion.RotateTowards(
             rb.rotation,
@@ -117,5 +113,10 @@ public class PlayerMove : MonoBehaviour
             rotationSpeed *
             Time.fixedDeltaTime
         );
+    }
+
+    public void SetPlayerIndex(int index)
+    {
+        playerIndex = index;
     }
 }
