@@ -14,22 +14,7 @@ public class PlayerInputManager : MonoBehaviour
 
     private InputAction moveAction = null;
     private InputAction pullAction = null;
-
-    public Vector2 MoveInput
-    {
-        get
-        {
-            return moveAction.ReadValue<Vector2>();
-        }
-    }
-
-    public bool SouthButtonPressed
-    {
-        get
-        {
-            return pullAction.WasPressedThisFrame();
-        }
-    }
+    public int PlayerIndex { get => playerInput.playerIndex; }
 
     public void SetInputType(InputType inputType)
     {
@@ -55,6 +40,22 @@ public class PlayerInputManager : MonoBehaviour
                 moveAction = playerInput.actions["MoveArrow"];
                 pullAction = playerInput.actions["PullKeyboard_1"];
                 break;
+        }
+    }
+
+    public Vector2 MoveInput
+    {
+        get
+        {
+            return moveAction.ReadValue<Vector2>();
+        }
+    }
+
+    public bool PullPressed
+    {
+        get
+        {
+            return pullAction.WasPressedThisFrame();
         }
     }
 }
