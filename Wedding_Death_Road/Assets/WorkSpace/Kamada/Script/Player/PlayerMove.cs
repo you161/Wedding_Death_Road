@@ -5,6 +5,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private Rigidbody rb = null;
     [SerializeField] private PlayerData playerData = null;
     [SerializeField] private PlayerInputManager playerInputManager = null;
+    [SerializeField] private PullManager pullManager = null;
 
     private Vector3 moveDirection = Vector3.zero;
 
@@ -26,11 +27,21 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
+        if (pullManager.CurrentState != PullState.None)
+        {
+            return;
+        }
+
         MoveInput();
     }
 
     private void FixedUpdate()
     {
+        if(pullManager.CurrentState != PullState.None)
+        {
+            return;
+        }
+
         Move();
         Rotate();
     }
