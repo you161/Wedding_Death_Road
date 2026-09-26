@@ -4,23 +4,15 @@ using UnityEngine.InputSystem;
 public class PlayerManager : MonoBehaviour
 {
     [Header("シーンに配置してあるプレイヤー")]
-    [SerializeField] private PlayerInput[] playerObjects = null;
-
-    [Header("スポーン位置")]
-    [SerializeField] private Transform[] spawnPoints = null;
-
     [SerializeField] private int maxPlayerCount = 2;
+    [SerializeField] private PlayerInput[] playerObjects = null;
+    [SerializeField] private PlayerMove[] playerMoves = null;
 
-    private PlayerInput[] players;
+    private PlayerInput[] players = null;
 
     private void Start()
     {
-        int playerCount = Mathf.Min(
-            maxPlayerCount,
-            playerObjects.Length,
-            spawnPoints.Length
-        );
-
+        int playerCount = Mathf.Min(maxPlayerCount, playerObjects.Length);
         players = new PlayerInput[playerCount];
 
         SetupPlayers(playerCount);
@@ -28,6 +20,9 @@ public class PlayerManager : MonoBehaviour
 
     private void SetupPlayers(int playerCount)
     {
+        //接続されているゲームパッドの数
+        int gamepadCount = Gamepad.all.Count;
+
         for (int i = 0; i < playerCount; i++)
         {
             PlayerInput playerInput = playerObjects[i];
@@ -40,25 +35,34 @@ public class PlayerManager : MonoBehaviour
             //プレイヤーを保存
             players[i] = playerInput;
 
-            //プレイヤー番号を設定
-            
+            if (playerMoves[i] != null)
+            {
+                playerMoves[i].SetPlayerIndex(i);
+            }
+
+            //入力設定
             if (playerInput.TryGetComponent<PlayerInputManager>(out var controllerInput))
             {
-                if (i == 0)
+                if (i < gamepadCount)
                 {
-                    //P1
-                    controllerInput.SetInputType(PlayerInputManager.InputType.WASD);
+                    //ゲームパッドがある場合
+                    controllerInput.SetInputType(PlayerInputManager.InputType.GamePad);
                 }
                 else
                 {
-                    //P2
-                    controllerInput.SetInputType(PlayerInputManager.InputType.Arrow);
+                    //ゲームパッドがない場合
+                    if (i == 0)
+                    {
+                        //P1→WASD
+                        controllerInput.SetInputType(PlayerInputManager.InputType.WASD);
+                    }
+                    else
+                    {
+                        //P2→矢印キー
+                        controllerInput.SetInputType(PlayerInputManager.InputType.Arrow);
+                    }
                 }
             }
-
-            //スポーン位置に移動
-            playerInput.transform.position = spawnPoints[i].position;
-            playerInput.transform.rotation = spawnPoints[i].rotation;
         }
     }
 }
