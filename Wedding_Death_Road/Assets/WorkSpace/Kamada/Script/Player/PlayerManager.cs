@@ -41,10 +41,8 @@ public class PlayerManager : MonoBehaviour
             players[i] = playerInput;
 
             //プレイヤー番号を設定
-            PlayerInputManager controllerInput =
-                playerInput.GetComponent<PlayerInputManager>();
-
-            if (controllerInput != null)
+            
+            if (playerInput.TryGetComponent<PlayerInputManager>(out var controllerInput))
             {
                 if (i == 0)
                 {
